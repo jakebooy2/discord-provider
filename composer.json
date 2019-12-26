@@ -1,0 +1,16 @@
+{
+    "name": "jakebooy2/discord-provider",
+    "description": "OAuth2 Provider for Discord",
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "ext-json": "*",
+        "socialiteproviders/manager": "~2.0 || ~3.0"
+    },
+    "authors": [
+        {
+            "name": "Jake Steen",
+            "email": "tfkjake@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

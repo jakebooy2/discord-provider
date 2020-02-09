@@ -86,8 +86,8 @@ class DiscordProvider extends AbstractProvider {
 
     public function getGuildChannelsByToken($guild, $token){
         $response = $this->getHttpClient()->get(
-            sprintf("https://discordapp.com/api/guilds/%s/channels", \config('services.discord.bot_token')), [
-                'Authorization' => 'Bot ' . $bot_token,
+            sprintf("https://discordapp.com/api/guilds/%s/channels", $guild), [
+                'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
             ]);
 
         return json_decode($response->getBody()->getContents(), true);
@@ -95,8 +95,8 @@ class DiscordProvider extends AbstractProvider {
 
     public function getGuildRolesByToken($guild, $token){
         $response = $this->getHttpClient()->get(
-            sprintf("https://discordapp.com/api/guilds/%s/roles", \config('services.discord.bot_token')), [
-                'Authorization' => 'Bot ' . $bot_token,
+            sprintf("https://discordapp.com/api/guilds/%s/roles", $guild), [
+                'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
             ]);
 
         return json_decode($response->getBody()->getContents(), true);

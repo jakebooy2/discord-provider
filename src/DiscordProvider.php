@@ -106,6 +106,17 @@ class DiscordProvider extends AbstractProvider {
         return json_decode($response->getBody()->getContents(), true);
     }
 
+    public function getMemberRolesInGuildByToken($guild, $user, $token){
+        $response = $this->getHttpClient()->get(
+          sprintf("https://discordapp.com/api/guilds/%s/members/%s", $guild, $user), [
+                'headers' => [
+                    'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
+                ],
+            ]);
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
     /**
      * {@inheritdoc}
      */

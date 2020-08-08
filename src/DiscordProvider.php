@@ -31,7 +31,7 @@ class DiscordProvider extends AbstractProvider {
 
     public function getAuthUrl($state){
         return $this->buildAuthUrlFromBase(
-            'https://discordapp.com/api/oauth2/authorize', $state
+            'https://discord.com/api/oauth2/authorize', $state
         );
     }
 
@@ -39,7 +39,7 @@ class DiscordProvider extends AbstractProvider {
     * {@inheritdoc}
     */
     public function getTokenUrl(){
-        return 'https://discordapp.com/api/oauth2/token';
+        return 'https://discord.com/api/oauth2/token';
     }
 
     public function refreshToken($token){
@@ -64,7 +64,7 @@ class DiscordProvider extends AbstractProvider {
     */
     public function getUserByToken($token){
         $response = $this->getHttpClient()->get(
-            "https://discordapp.com/api/users/@me", [
+            "https://discord.com/api/users/@me", [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $token,
                 ],
@@ -76,7 +76,7 @@ class DiscordProvider extends AbstractProvider {
 
     public function getUserGuildsByToken($token){
         $response = $this->getHttpClient()->get(
-            "https://discordapp.com/api/users/@me/guilds", [
+            "https://discord.com/api/users/@me/guilds", [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $token,
                 ],
@@ -86,7 +86,7 @@ class DiscordProvider extends AbstractProvider {
 
     public function getGuildChannelsByToken($guild, $token){
         $response = $this->getHttpClient()->get(
-            sprintf("https://discordapp.com/api/guilds/%s/channels", $guild), [
+            sprintf("https://discord.com/api/guilds/%s/channels", $guild), [
                 'headers' => [
                     'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
                 ],
@@ -97,7 +97,7 @@ class DiscordProvider extends AbstractProvider {
 
     public function getGuildRolesByToken($guild, $token){
         $response = $this->getHttpClient()->get(
-            sprintf("https://discordapp.com/api/guilds/%s/roles", $guild), [
+            sprintf("https://discord.com/api/guilds/%s/roles", $guild), [
                  'headers' => [
                     'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
                   ],
@@ -108,7 +108,7 @@ class DiscordProvider extends AbstractProvider {
 
     public function getMemberRolesInGuildByToken($guild, $user, $token){
         $response = $this->getHttpClient()->get(
-          sprintf("https://discordapp.com/api/guilds/%s/members/%s", $guild, $user), [
+          sprintf("https://discord.com/api/guilds/%s/members/%s", $guild, $user), [
                 'headers' => [
                     'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
                 ],

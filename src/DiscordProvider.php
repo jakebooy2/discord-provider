@@ -116,6 +116,18 @@ class DiscordProvider extends AbstractProvider {
 
         return json_decode($response->getBody()->getContents(), true);
     }
+    
+    public function getUserById($user){
+        $response = $this->getHttpClient()->get(
+            "https://discord.com/api/users/" . $user, [
+                'headers' => [
+                    'Authorization' => 'Bot ' . \config('services.discord.bot_token'),     
+                ]
+            ]
+        );
+        
+        return json_decode($response->getBody()->getContents(), true);
+    }
 
     /**
      * {@inheritdoc}

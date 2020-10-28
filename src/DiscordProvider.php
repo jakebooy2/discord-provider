@@ -84,7 +84,7 @@ class DiscordProvider extends AbstractProvider {
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function getGuildChannelsByToken($guild, $token){
+    public function getGuildChannels($guild){
         $response = $this->getHttpClient()->get(
             sprintf("https://discord.com/api/guilds/%s/channels", $guild), [
                 'headers' => [
@@ -95,7 +95,7 @@ class DiscordProvider extends AbstractProvider {
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function getGuildRolesByToken($guild, $token){
+    public function getGuildRoles($guild){
         $response = $this->getHttpClient()->get(
             sprintf("https://discord.com/api/guilds/%s/roles", $guild), [
                  'headers' => [
@@ -106,7 +106,7 @@ class DiscordProvider extends AbstractProvider {
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function getMemberRolesInGuildByToken($guild, $user, $token){
+    public function getMemberRolesInGuild($guild, $user){
         $response = $this->getHttpClient()->get(
           sprintf("https://discord.com/api/guilds/%s/members/%s", $guild, $user), [
                 'headers' => [

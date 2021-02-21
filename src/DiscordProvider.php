@@ -128,6 +128,21 @@ class DiscordProvider extends AbstractProvider {
         
         return json_decode($response->getBody()->getContents(), true);
     }
+    
+    public function getGuildMemberById($guildId, $userId = false){
+    	if(!$userId)
+    		$userId = \config('services.discord.client_id');
+    	
+    	$response = $this->getHttpClient()->get(
+    		"https://discord.com/api/guilds/" . $guildId . "/members/" . $userId, [
+    			'headers' => [
+    				'Authorization' => 'Bot ' . \config('services.discord.bot_token')
+				]
+			]
+		);
+	
+		return json_decode($response->getBody()->getContents(), true);
+	}
 
     /**
      * {@inheritdoc}

@@ -105,6 +105,17 @@ class DiscordProvider extends AbstractProvider {
 
         return json_decode($response->getBody()->getContents(), true);
     }
+	
+    public function getGuildEmojis($guild){
+        $response = $this->getHttpClient()->get(
+            sprintf("https://discord.com/api/guilds/%s/emojis", $guild), [
+                'headers' => [
+                    'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
+                ],
+            ]);
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
 
     public function getMemberRolesInGuild($guild, $user){
         $response = $this->getHttpClient()->get(
@@ -145,7 +156,6 @@ class DiscordProvider extends AbstractProvider {
 	
 		return json_decode($response->getBody()->getContents(), true);
 	}
-
 
     /**
      * {@inheritdoc}

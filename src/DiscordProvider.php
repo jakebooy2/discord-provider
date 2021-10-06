@@ -160,12 +160,12 @@ class DiscordProvider extends AbstractProvider {
     /**
      * {@inheritdoc}
      */
-    protected function mapUserToObject(array $user){
+    protected function mapUserToObject(array $user, $wantGuilds = true){
         return (new User())->setRaw($user)->map([
             'id' => $user['id'],
             'nickname' => sprintf('%s#%d', $user['username'], $user['discriminator']),
             'name' => $user['username'],
-            'guilds' => $this->getUserGuildsByToken($user['token']),
+            'guilds' => $wantGuilds ? $this->getUserGuildsByToken($user['token']) : [],
             'avatar' => (is_null($user['avatar'])) ? null : sprintf('https://cdn.discordapp.com/avatars/%s/%s.jpg', $user['id'], $user['avatar']),        ]);
     }
 

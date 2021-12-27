@@ -83,6 +83,80 @@ class DiscordProvider extends AbstractProvider {
             ]);
         return json_decode($response->getBody()->getContents(), true);
     }
+    
+    public function getGuildChannels($guild){
+         $response = $this->getHttpClient()->get(
+             sprintf("https://discord.com/api/guilds/%s/channels", $guild), [
+                 'headers' => [
+                     'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
+                 ],
+             ]);
+
+         return json_decode($response->getBody()->getContents(), true);
+     }
+
+     public function getGuildRoles($guild){
+         $response = $this->getHttpClient()->get(
+             sprintf("https://discord.com/api/guilds/%s/roles", $guild), [
+                  'headers' => [
+                     'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
+                   ],
+             ]);
+
+         return json_decode($response->getBody()->getContents(), true);
+     }
+
+     public function getGuildEmojis($guild){
+         $response = $this->getHttpClient()->get(
+             sprintf("https://discord.com/api/guilds/%s/emojis", $guild), [
+                 'headers' => [
+                     'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
+                 ],
+             ]);
+
+         return json_decode($response->getBody()->getContents(), true);
+     }
+
+     public function getMemberRolesInGuild($guild, $user){
+         $response = $this->getHttpClient()->get(
+           sprintf("https://discord.com/api/guilds/%s/members/%s", $guild, $user), [
+                 'headers' => [
+                     'Authorization' => 'Bot ' . \config('services.discord.bot_token'),
+                 ],
+             ]);
+
+         return json_decode($response->getBody()->getContents(), true);
+     }
+
+     public function getUserById($user){
+         $response = $this->getHttpClient()->get(
+             "https://discord.com/api/users/" . $user, [
+                 'headers' => [
+                     'Authorization' => 'Bot ' . \config('services.discord.bot_token'),     
+                 ]
+             ]
+         );
+
+         return json_decode($response->getBody()->getContents(), true);
+     }
+
+     public function getGuildMemberById($guildId, $userId = false, $token = null){
+     	if(!$userId)
+     		$userId = \config('services.discord.client_id');
+
+         $authorization = $token == null ? "Bot " . \config('services.discord.bot_token') : "Bearer " . $token;
+
+     	$response = $this->getHttpClient()->get(
+     		"https://discord.com/api/guilds/" . $guildId . "/members/" . $userId, [
+     			'headers' => [
+     				'Authorization' => $authorization
+ 				]
+ 			]
+ 		);
+
+ 		return json_decode($response->getBody()->getContents(), true);
+ 	}
+
 
     /**
      * {@inheritdoc}
